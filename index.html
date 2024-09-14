@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Must-Watch UK TV Quiz</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Baloo 2', sans-serif;
+            background-color: #38B6FF; /* Background color */
+            color: black;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        #yellow-box {
+            width: 200px;
+            height: 200px;
+            background-color: #FED405; /* Yellow color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+            border: 5px solid black; /* Black edging */
+            transition: transform 0.1s ease-in-out;
+        }
+
+        #question-answer {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* Keyframes for the bounce animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Class to trigger the bounce animation */
+        .animate-bounce {
+            animation: bounce 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="yellow-box">MUST-WATCH UK TV</div>
+
+    <div id="question-answer"></div>
+
+    <script>
+        const yellowBox = document.getElementById("yellow-box");
+        const questionAnswerDiv = document.getElementById("question-answer");
+
+        // Array of must-watch UK TV trivia questions and answers
+        const ukTvQuestions = [
+            { question: "Which British TV show features a group of doctors working in the fictional hospital of Holby City?", answer: "Casualty" },
+            { question: "What long-running British soap opera is set in the fictional town of Weatherfield?", answer: "Coronation Street" },
+            { question: "Which UK TV series, created by Ricky Gervais, is known for its mockumentary style and follows the lives of office workers?", answer: "The Office" },
+            { question: "What British TV show, set in the 1960s, features a detective with a keen eye for solving crimes in the fictional town of Midsomer?", answer: "Midsomer Murders" },
+            { question: "Which British sci-fi series follows the adventures of the Doctor, a Time Lord from Gallifrey?", answer: "Doctor Who" },
+            { question: "What British crime drama follows the investigations of the Metropolitan Police's Major Crimes Team?", answer: "Luther" },
+            { question: "Which British TV series features a group of friends living in London and includes characters named Ross, Rachel, and Chandler?", answer: "Friends" },
+            { question: "What reality TV show involves contestants competing to become the next top model, hosted by Tyra Banks in the US and Heidi Klum in Germany?", answer: "America's Next Top Model" },
+            { question: "Which British TV drama set in the 1960s features the lives of the staff at a busy London hospital?", answer: "Call the Midwife" },
+            { question: "What British TV show is a comedic panel show hosted by Jimmy Carr, featuring celebrity guests and funny anecdotes?", answer: "8 Out of 10 Cats" },
+            { question: "Which British crime drama follows the lives of police officers in the fictional town of Sun Hill?", answer: "The Bill" },
+            { question: "What British TV show features a group of chefs competing in a high-pressure kitchen environment?", answer: "MasterChef" },
+            { question: "Which British TV series features a group of people who can communicate with the dead and helps them resolve unfinished business?", answer: "Being Human" },
+            { question: "What British TV comedy series is set in a fictional hospital and features a character named Dr. Gregory House?", answer: "House" },
+            { question: "Which British TV show follows the lives of employees working at a fictional supermarket called 'The Store'?", answer: "Superstore" },
+            { question: "What British TV drama features the adventures of a British secret agent working for MI6?", answer: "James Bond" },
+            { question: "Which British TV series is set in the fictional country of Genosha and follows a group of superhumans?", answer: "Misfits" },
+            { question: "What British TV series features a group of friends navigating the ups and downs of life and love in the fictional town of Chesterfield?", answer: "The Inbetweeners" },
+            { question: "Which British TV show features the comedic misadventures of a group of friends living in the fictional city of Wernham Hogg?", answer: "The Office" },
+            { question: "What British TV show follows the lives of the staff at a fictional hospital in the small town of St. Mary Mead?", answer: "Midsomer Murders" },
+            { question: "Which British TV show features a detective who solves crimes with the help of a clairvoyant medium?", answer: "Medium" },
+            { question: "What British TV series follows a group of friends in their 20s as they navigate life and relationships in a small town?", answer: "The Inbetweeners" },
+            { question: "Which British TV drama is set in a fictional law firm and features a group of solicitors working on high-profile cases?", answer: "Silk" },
+            { question: "What British TV show is a reality competition where contestants compete in cooking challenges to become the next top chef?", answer: "The Great British Bake Off" },
+            { question: "Which British TV drama follows the lives of a group of police officers working in the fictional town of Sandford?", answer: "Hot Fuzz" },
+            { question: "What British TV series follows a group of friends in their 30s as they navigate life, love, and career in the city of London?", answer: "Made in Heaven" },
+            { question: "Which British TV show features a detective with a brilliant mind and a knack for solving complex cases?", answer: "Sherlock" },
+            { question: "What British TV series features a group of people with extraordinary abilities working together to save the world?", answer: "Heroes" },
+            { question: "Which British TV show follows the lives of the staff at a fictional police station in the town of Ashfordly?", answer: "Heartbeat" },
+            { question: "What British TV show features a group of friends who become superheroes after gaining extraordinary powers?", answer: "Misfits" },
+            { question: "Which British TV drama follows the lives of a group of detectives working on complex murder cases in the city of London?", answer: "Murder in Mind" },
+            { question: "What British TV show features a group of friends in their 40s trying to balance family life and careers?", answer: "Coupling" },
+            { question: "Which British TV series is set in a fictional space station and follows a team of astronauts on a mission to explore new worlds?", answer: "Red Dwarf" },
+            { question: "What British TV show features a group of contestants trying to win a cash prize by answering questions correctly?", answer: "Who Wants to Be a Millionaire?" },
+            { question: "Which British TV drama follows the lives of a group of friends as they navigate relationships and careers in the city of Birmingham?", answer: "Peaky Blinders" },
+            { question: "What British TV series features a group of people trying to survive a post-apocalyptic world filled with zombies?", answer: "The Walking Dead" },
+            { question: "Which British TV show features a group of contestants competing in a series of physical and mental challenges?", answer: "The Crystal Maze" },
+            { question: "What British TV series follows the lives of a group of friends working in a fictional advertising agency?", answer: "Mad Men" },
+            { question: "Which British TV drama features a group of police officers working to solve crimes in the fictional town of Emmerdale?", answer: "Emmerdale" },
+            { question: "What British TV show features a group of contestants attempting to win a cash prize by solving puzzles and answering questions?", answer: "The Chase" },
+            { question: "Which British TV series follows the lives of a group of people working at a fictional fashion magazine?", answer: "The Devil Wears Prada" },
+            { question: "What British TV show features a group of friends working in a fictional call center?", answer: "The IT Crowd" },
+            { question: "Which British TV drama features a group of police officers working in the fictional town of Sandford?", answer: "Hot Fuzz" },
+            { question: "What British TV show features a group of contestants competing to be the next top fashion designer?", answer: "Project Runway" },
+            { question: "Which British TV series follows the lives of a group of detectives working on a series of complex murder cases in London?", answer: "Broadchurch" },
+            { question: "What British TV show features a group of people trying to win a cash prize by answering trivia questions correctly?", answer: "Pointless" },
+            { question: "Which British TV series features a group of friends navigating the ups and downs of life in the fictional town of Emmerdale?", answer: "Emmerdale" }
+        ];
+
+        let shuffledQuestions = [];
+        let questionIndex = 0;
+
+        // Shuffle the questions array
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // Initialize questions
+        function initializeQuestions() {
+            shuffledQuestions = shuffleArray([...ukTvQuestions]);
+            questionIndex = 0;
+            displayQuestion();
+        }
+
+        // Function to display the current question
+        function displayQuestion() {
+            if (shuffledQuestions.length === 0) {
+                questionAnswerDiv.innerHTML = "<strong>No more questions!</strong>";
+                return;
+            }
+            const currentQA = shuffledQuestions[questionIndex];
+            questionAnswerDiv.innerHTML = `<strong>Question:</strong> ${currentQA.question}<br><strong>Answer:</strong> ${currentQA.answer}`;
+        }
+
+        // Bounce animation on click
+        yellowBox.addEventListener("click", () => {
+            yellowBox.classList.add("animate-bounce");
+            setTimeout(() => {
+                yellowBox.classList.remove("animate-bounce");
+            }, 300);
+            questionIndex = (questionIndex + 1) % shuffledQuestions.length;
+            displayQuestion();
+        });
+
+        // Initialize the quiz
+        initializeQuestions();
+    </script>
+
+</body>
+</html>
